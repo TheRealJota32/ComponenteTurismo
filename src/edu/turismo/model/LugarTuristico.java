@@ -1,4 +1,4 @@
-package edu.turismo.lugares;
+package edu.turismo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;

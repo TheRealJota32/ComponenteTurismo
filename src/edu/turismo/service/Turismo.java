@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import edu.turismo.lugares.Ciudad;
-import edu.turismo.lugares.LugarTuristico;
-import edu.turismo.lugares.Pais;
+import edu.turismo.model.Ciudad;
+import edu.turismo.model.LugarTuristico;
+import edu.turismo.model.Pais;
 
 public class Turismo {
 	private static EntityManagerFactory entityManagerFactory = null;
