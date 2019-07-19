@@ -1,4 +1,4 @@
-package edu.ulatina.lugares;
+package edu.turismo.lugares;
 
 import java.io.Serializable;
 import javax.persistence.*;

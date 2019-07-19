@@ -1,11 +1,11 @@
-package edu.ulatina.lugares;
+package edu.turismo.lugares;
 
 import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import edu.ulatina.lugares.Ciudad;
+import edu.turismo.lugares.Ciudad;
 
 /**
  * Entity implementation class for Entity: Pais
