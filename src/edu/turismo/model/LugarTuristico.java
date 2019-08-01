@@ -18,6 +18,7 @@ public class LugarTuristico implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idCiudad")
 	private Ciudad ciudad;
+	private String idImagen;
 	private static final long serialVersionUID = 1L;
 
 	public LugarTuristico() {
@@ -56,4 +57,12 @@ public class LugarTuristico implements Serializable {
 		this.ciudad = ciudad;
 	}
 
+	public String getIdImagen() {
+		return idImagen;
+	}
+
+	public void setIdImagen(String idImagen) {
+		this.idImagen = idImagen;
+	}
+	
 }

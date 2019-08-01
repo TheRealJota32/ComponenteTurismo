@@ -9,3 +9,5 @@ project.properties
 .project
 .settings/
 .classpath
+credentials.json
+tokens/
