@@ -1,13 +1,50 @@
 package edu.turismo.service;
 
-import java.util.HashSet;
-
 import edu.turismo.model.Ciudad;
 import edu.turismo.model.LugarTuristico;
 import edu.turismo.model.Pais;
 
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 public class TurismoLugares {
 	private static Conector ch = new Conector();
+
+	public static List<LugarTuristico> getLugaresTuristicos(String nombrePais) {
+		Pais pais;
+		List<Ciudad> ciudades = new ArrayList<>();
+		List<LugarTuristico> lugares = new ArrayList<>();
+
+		try {
+			ch.startEntityManagerFactory();
+			String query = "SELECT p FROM Pais p WHERE p.nombre = :nombrePais";
+			TypedQuery<Pais> tq = ch.getEm().createQuery(query, Pais.class);
+			tq.setParameter("nombrePais", nombrePais);
+			pais = tq.getSingleResult();
+
+			if (pais != null) {
+				query = "SELECT c FROM Ciudad c WHERE c.pais = :pais";
+				TypedQuery<Ciudad> tq2 = ch.getEm().createQuery(query, Ciudad.class);
+				tq2.setParameter("pais", pais);
+				ciudades = tq2.getResultList();
+
+				for (Ciudad c : ciudades) {
+					query = "SELECT l FROM LugarTuristico l WHERE l.ciudad= :ciudad";
+					TypedQuery<LugarTuristico> tq3 = ch.getEm().createQuery(query, LugarTuristico.class);
+					tq3.setParameter("ciudad", c);
+					lugares.addAll(tq3.getResultList());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ch.stopEntityManagerFactory();
+		}
+
+		return lugares.isEmpty() ? null : lugares;
+	}
 
 	public static void agregarlugares(String nombrePais, String nombreCiudad, String nombreTuris, String cordenadas) {
 

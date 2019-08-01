@@ -10,7 +10,6 @@ import javax.persistence.*;
  *
  */
 @Entity
-
 public class Ciudad implements Serializable {
 
 	@Id
