@@ -12,7 +12,7 @@ import java.util.List;
 public class TurismoLugares {
 	private static Conector ch = new Conector();
 
-	public static List<LugarTuristico> getLugaresTuristicos(String nombrePais) {
+	public List<LugarTuristico> getLugaresTuristicos(String nombrePais) {
 		Pais pais;
 		List<Ciudad> ciudades = new ArrayList<>();
 		List<LugarTuristico> lugares = new ArrayList<>();
@@ -46,7 +46,7 @@ public class TurismoLugares {
 		return lugares.isEmpty() ? null : lugares;
 	}
 
-	public static void agregarlugares(String nombrePais, String nombreCiudad, String nombreTuris, String cordenadas) {
+	public void agregarlugares(String nombrePais, String nombreCiudad, String nombreTuris, String cordenadas) {
 
 		try {
 			ch.startEntityManagerFactory();
@@ -81,7 +81,62 @@ public class TurismoLugares {
 
 	}
 
-	public static void borrarLugarTuristico(int id) {
+	public void agregarLugarConPais(int idPais, String nombreCiudad, String nombreTuris, String cordenadas) {
+		try {
+			ch.startEntityManagerFactory();
+			Pais pais = new Pais();
+			pais = ch.getEm().find(Pais.class, idPais);
+
+			Ciudad ciudad = new Ciudad();
+			ciudad.setNombre(nombreCiudad);
+			ciudad.setPais(pais);
+			ciudad.setLugares(new HashSet<LugarTuristico>());
+
+			LugarTuristico lugarTuristico = new LugarTuristico();
+			lugarTuristico.setCiudad(ciudad);
+			lugarTuristico.setNombre(nombreTuris);
+			lugarTuristico.setGeoCorde(cordenadas);
+
+			pais.getCiudades().add(ciudad);
+
+			ciudad.getLugares().add(lugarTuristico);
+
+			ch.getEm().getTransaction().begin();
+			ch.getEm().merge(pais);
+			ch.getEm().getTransaction().commit();
+			ch.stopEntityManagerFactory();
+			System.out.println("Finalizo");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void agregarLugarConCiudad(int idCiudad, String nombreTuris, String cordenadas) {
+		try {
+			ch.startEntityManagerFactory();
+			Ciudad ciudad = new Ciudad();
+			ciudad = ch.getEm().find(Ciudad.class, idCiudad);
+
+			LugarTuristico lugarTuristico = new LugarTuristico();
+			lugarTuristico.setCiudad(ciudad);
+			lugarTuristico.setNombre(nombreTuris);
+			lugarTuristico.setGeoCorde(cordenadas);
+
+			ciudad.getLugares().add(lugarTuristico);
+
+			ch.getEm().getTransaction().begin();
+			ch.getEm().merge(ciudad);
+			ch.getEm().getTransaction().commit();
+			ch.stopEntityManagerFactory();
+			System.out.println("Finalizo");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void borrarLugarTuristico(int id) {
 		LugarTuristico lt = null;
 		try {
 			ch.startEntityManagerFactory();
@@ -99,7 +154,7 @@ public class TurismoLugares {
 
 	}
 
-	public static void modificarLugarTuristico(int id, String nombre) {
+	public void modificarLugarTuristico(int id, String nombre) {
 		LugarTuristico lt = null;
 		try {
 			ch.startEntityManagerFactory();
