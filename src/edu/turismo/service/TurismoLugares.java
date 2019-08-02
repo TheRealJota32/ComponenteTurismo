@@ -47,7 +47,9 @@ public class TurismoLugares {
 		return lugares.isEmpty() ? null : lugares;
 	}
 
-	public void agregarlugares(String nombrePais, String nombreCiudad, String nombreTuris, String cordenadas) {
+	public LugarTuristico agregarlugares(String nombrePais, String nombreCiudad, String nombreTuris,
+			String cordenadas) {
+		LugarTuristico lugarTuristico = null;
 
 		try {
 			ch.startEntityManagerFactory();
@@ -60,7 +62,7 @@ public class TurismoLugares {
 			ciudad.setPais(pais);
 			ciudad.setLugares(new HashSet<LugarTuristico>());
 
-			LugarTuristico lugarTuristico = new LugarTuristico();
+			lugarTuristico = new LugarTuristico();
 			lugarTuristico.setCiudad(ciudad);
 			lugarTuristico.setNombre(nombreTuris);
 			lugarTuristico.setGeoCorde(cordenadas);
@@ -79,10 +81,12 @@ public class TurismoLugares {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return lugarTuristico;
 
 	}
 
-	public void agregarLugarConPais(int idPais, String nombreCiudad, String nombreTuris, String cordenadas) {
+	public LugarTuristico agregarLugarConPais(int idPais, String nombreCiudad, String nombreTuris, String cordenadas) {
+		LugarTuristico lugarTuristico = null;
 		try {
 			ch.startEntityManagerFactory();
 			Pais pais = new Pais();
@@ -93,7 +97,7 @@ public class TurismoLugares {
 			ciudad.setPais(pais);
 			ciudad.setLugares(new HashSet<LugarTuristico>());
 
-			LugarTuristico lugarTuristico = new LugarTuristico();
+			lugarTuristico = new LugarTuristico();
 			lugarTuristico.setCiudad(ciudad);
 			lugarTuristico.setNombre(nombreTuris);
 			lugarTuristico.setGeoCorde(cordenadas);
@@ -111,15 +115,17 @@ public class TurismoLugares {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return lugarTuristico;
 	}
 
-	public void agregarLugarConCiudad(int idCiudad, String nombreTuris, String cordenadas) {
+	public LugarTuristico agregarLugarConCiudad(int idCiudad, String nombreTuris, String cordenadas) {
+		LugarTuristico lugarTuristico = null;
 		try {
 			ch.startEntityManagerFactory();
 			Ciudad ciudad = new Ciudad();
 			ciudad = ch.getEm().find(Ciudad.class, idCiudad);
 
-			LugarTuristico lugarTuristico = new LugarTuristico();
+			lugarTuristico = new LugarTuristico();
 			lugarTuristico.setCiudad(ciudad);
 			lugarTuristico.setNombre(nombreTuris);
 			lugarTuristico.setGeoCorde(cordenadas);
@@ -135,6 +141,7 @@ public class TurismoLugares {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return lugarTuristico;
 	}
 
 	public void borrarLugarTuristico(int id) {
