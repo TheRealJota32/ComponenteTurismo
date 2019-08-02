@@ -70,7 +70,7 @@ public class GoogleDriveService {
 		return driveService;
 	}
 
-	public static LugarTuristico uploadImage(LugarTuristico lugarTuristico, java.io.File filePath)
+	public LugarTuristico uploadImage(LugarTuristico lugarTuristico, java.io.File filePath)
 			throws GeneralSecurityException, IOException {
 		File fileMetadata = new File();
 		fileMetadata.setName(lugarTuristico.getId() + " - " + lugarTuristico.getNombre() + ".jpg");
@@ -104,7 +104,7 @@ public class GoogleDriveService {
 		return lugarTuristico;
 	}
 
-	public static InputStream getImage(LugarTuristico lugarTuristico) throws IOException, GeneralSecurityException {
+	public InputStream getImage(LugarTuristico lugarTuristico) throws IOException, GeneralSecurityException {
 		Drive driveService = getDriveService();
 
 		InputStream inputStream = driveService.files().get(lugarTuristico.getIdImagen()).executeMediaAsInputStream();
