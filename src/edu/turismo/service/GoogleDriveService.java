@@ -1,11 +1,9 @@
 package edu.turismo.service;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +69,7 @@ public class GoogleDriveService {
 				.setApplicationName(APPLICATION_NAME).build();
 		return driveService;
 	}
-	
+
 	public static LugarTuristico uploadImage(LugarTuristico lugarTuristico, java.io.File filePath)
 			throws GeneralSecurityException, IOException {
 		File fileMetadata = new File();
@@ -81,7 +79,7 @@ public class GoogleDriveService {
 		File file;
 
 		Drive driveService = getDriveService();
-		
+
 		if ((lugarTuristico.getIdImagen() == null) || (lugarTuristico.getIdImagen().isEmpty())) {
 			mediaContent = new FileContent("image/jpeg", filePath);
 			file = driveService.files().create(fileMetadata, mediaContent).setFields("id").execute();
@@ -108,9 +106,8 @@ public class GoogleDriveService {
 
 	public static InputStream getImage(LugarTuristico lugarTuristico) throws IOException, GeneralSecurityException {
 		Drive driveService = getDriveService();
-		
-		InputStream inputStream = driveService.files().get(lugarTuristico.getIdImagen())
-		    .executeMediaAsInputStream();
+
+		InputStream inputStream = driveService.files().get(lugarTuristico.getIdImagen()).executeMediaAsInputStream();
 
 		return inputStream;
 	}

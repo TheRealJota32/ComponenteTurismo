@@ -1,28 +1,24 @@
 package edu.turismo.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.security.GeneralSecurityException;
 import java.util.List;
-
 import edu.turismo.model.LugarTuristico;
 
 public class Tester {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		TurismoLugares turismoLugares = new TurismoLugares();
 
-		List<LugarTuristico> lugares = turismoLugares.getLugaresTuristicos("Pais1");
+		List<LugarTuristico> lugares = turismoLugares.getLugaresTuristicos("Costa Rica");
 		if ((lugares != null) && !lugares.isEmpty()) {
 			for (LugarTuristico l : lugares) {
 				System.out.println(l.getId() + " | " + l.getNombre() + " | " + l.getCiudad().getNombre());
 			}
-			// uploadTest(lugares.get(0));
-			// downloadTest(lugares.get(0));
+			System.out.println(new File("/Users/josepabloramirez/imagesComponentes/‎⁨⁩‎⁨wallpaper.jpg").exists());
+			// uploadTest(lugares.get(1));
+			// downloadTest(lugares.get(1));
 		} else {
 			System.out.println("Empty!");
 		}
@@ -43,26 +39,27 @@ public class Tester {
 
 	}
 
-	private static void uploadTest(LugarTuristico lugarTuristico) {
-		try {
-			GoogleDriveService.uploadImage(lugarTuristico, new File("/home/diego/Desktop/test2.jpeg"));
-		} catch (GeneralSecurityException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void downloadTest(LugarTuristico lugarTuristico) {
-		try {
-			InputStream inputStream = GoogleDriveService.getImage(lugarTuristico);
-			OutputStream outputStream = new FileOutputStream("/home/diego/Desktop/DownloadTest.jpeg");
-			inputStream.transferTo(outputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (GeneralSecurityException e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void uploadTest(LugarTuristico lugarTuristico) throws FileNotFoundException {
+//		try {
+//			GoogleDriveService.uploadImage(lugarTuristico,
+//					new File("/Users/josepabloramirez/imagesComponentes/wallpaper.jpg"));
+//		} catch (GeneralSecurityException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	public static void downloadTest(LugarTuristico lugarTuristico) {
+//		try {
+//			InputStream inputStream = GoogleDriveService.getImage(lugarTuristico);
+//			OutputStream outputStream = new FileOutputStream("/Users/josepabloramirez/imagesComponentes/‎⁨⁩‎⁨wallpaper2.jpg");
+//			inputStream.transferTo(outputStream);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (GeneralSecurityException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }

@@ -5,6 +5,7 @@ import edu.turismo.model.LugarTuristico;
 import edu.turismo.model.Pais;
 
 import javax.persistence.TypedQuery;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
